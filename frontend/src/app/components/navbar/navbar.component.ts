@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TokenService } from '../../services/token.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,15 @@ import { TokenService } from '../../services/token.service';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
-  private tokenService = inject(TokenService);
-  isLoggedIn = this.tokenService.isLoggedIn();
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

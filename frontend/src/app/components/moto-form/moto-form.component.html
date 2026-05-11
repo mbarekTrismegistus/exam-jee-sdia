@@ -1,1 +1,75 @@
-<p>moto-form works!</p>
+<h2><i class="bi bi-motorcycle"></i> Ajouter une moto</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Common vehicle fields -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Marque</label>
+      <input class="form-control" formControlName="marque">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Modèle</label>
+      <input class="form-control" formControlName="modele">
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Matricule</label>
+      <input class="form-control" formControlName="matricule">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Prix par jour (€)</label>
+      <input class="form-control" type="number" formControlName="prixParJour">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Date mise en service</label>
+      <input class="form-control" type="date" formControlName="dateMiseEnService">
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label class="form-label">Statut initial</label>
+      <select class="form-select" formControlName="statut">
+        <option value="DISPONIBLE">Disponible</option>
+        <option value="LOUE">Loué</option>
+        <option value="EN_MAINTENANCE">En maintenance</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">ID de l'agence</label>
+      <input class="form-control" type="number" formControlName="agenceId">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Cylindrée (cm³)</label>
+      <input class="form-control" type="number" formControlName="cylindree">
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Type de moto</label>
+      <select class="form-select" formControlName="typeMoto">
+        <option value="SPORTIVE">Sportive</option>
+        <option value="SCOOTER">Scooter</option>
+        <option value="ROADSTER">Roadster</option>
+        <option value="TOURING">Touring</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Casque inclus</label>
+      <select class="form-select" formControlName="casqueInclus">
+        <option value="OUI">Oui</option>
+        <option value="NON">Non</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+    <i class="bi bi-check-circle"></i> Créer la moto
+  </button>
+  <a class="btn btn-secondary ms-2" routerLink="/vehicules">
+    <i class="bi bi-x-circle"></i> Annuler
+  </a>
+</form>

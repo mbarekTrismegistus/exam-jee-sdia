@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ExamJeeSdiaApplication implements CommandLineRunner {
@@ -22,6 +24,10 @@ public class ExamJeeSdiaApplication implements CommandLineRunner {
     private MotoRepository motoRepo;
     @Autowired
     private LocationRepository locationRepo;
+    @Autowired
+    private UserRepository userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ExamJeeSdiaApplication.class, args);
@@ -32,7 +38,6 @@ public class ExamJeeSdiaApplication implements CommandLineRunner {
         Agence agenceCentre = new Agence(null, "Agence Centre-Ville", "15 Av. Hassan II", "Casablanca", "0522-123456", new ArrayList<>());
         Agence agenceMarina = new Agence(null, "Agence Marina", "8 Boulevard de la Corniche", "Casablanca", "0522-654321", new ArrayList<>());
         Agence agenceRabat = new Agence(null, "Agence Rabat Gare", "Place de la Gare", "Rabat", "0537-112233", new ArrayList<>());
-
         agenceCentre = agenceRepo.save(agenceCentre);
         agenceMarina = agenceRepo.save(agenceMarina);
         agenceRabat = agenceRepo.save(agenceRabat);
@@ -143,7 +148,6 @@ public class ExamJeeSdiaApplication implements CommandLineRunner {
         vespa = motoRepo.save(vespa);
         bmw = motoRepo.save(bmw);
 
-
         Location loc1 = new Location();
         loc1.setDateDebut(LocalDate.now().minusDays(10));
         loc1.setDateFin(LocalDate.now().minusDays(5));
@@ -186,13 +190,24 @@ public class ExamJeeSdiaApplication implements CommandLineRunner {
         loc7.setPrixTotal(5 * clio.getPrixParJour());
         loc7.setVehicule(clio);
 
-        locationRepo.save(loc1);
-        locationRepo.save(loc2);
-        locationRepo.save(loc3);
-        locationRepo.save(loc4);
-        locationRepo.save(loc5);
-        locationRepo.save(loc6);
-        locationRepo.save(loc7);
+        locationRepo.saveAll(List.of(loc1, loc2, loc3, loc4, loc5, loc6, loc7));
+
+        User admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("admin123"))
+                .role(UserRole.ROLE_ADMIN)
+                .build();
+        User employe = User.builder()
+                .username("employe")
+                .password(passwordEncoder.encode("employe123"))
+                .role(UserRole.ROLE_EMPLOYE)
+                .build();
+        User client = User.builder()
+                .username("client")
+                .password(passwordEncoder.encode("client123"))
+                .role(UserRole.ROLE_CLIENT)
+                .build();
+        userRepo.saveAll(List.of(admin, employe, client));
 
 
     }

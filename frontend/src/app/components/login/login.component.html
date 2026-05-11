@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+      <h2>Connexion</h2>
+      @if (errorMessage) {
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+      }
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label>Nom d'utilisateur</label>
+          <input class="form-control" formControlName="username">
+        </div>
+        <div class="mb-3">
+          <label>Mot de passe</label>
+          <input class="form-control" type="password" formControlName="password">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+          Se connecter
+        </button>
+      </form>
+    </div>
+  </div>
