@@ -1,0 +1,24 @@
+<h2>Locations</h2>
+<a class="btn btn-success mb-3" routerLink="/locations/new">+ Nouvelle location</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th><th>Véhicule</th><th>Date début</th><th>Date fin</th><th>Prix total</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (loc of locations(); track loc.id) {
+      <tr>
+        <td>{{ loc.id }}</td>
+        <td>{{ loc.vehiculeMarque }} {{ loc.vehiculeModele }}</td>
+        <td>{{ loc.dateDebut }}</td>
+        <td>{{ loc.dateFin }}</td>
+        <td>{{ loc.prixTotal }} €</td>
+        <td>
+          <button class="btn btn-sm btn-info" (click)="returnVehicle(loc.id!)">✔️ Retour</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

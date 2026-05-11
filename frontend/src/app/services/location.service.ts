@@ -7,17 +7,9 @@ import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class LocationService {
   private http = inject(HttpClient);
-  private baseUrl = environment.apiBaseUrl;
+  private baseUrl = `${environment.apiBaseUrl}/locations`;
 
-  getAll(): Observable<Location[]> {
-    return this.http.get<Location[]>(this.baseUrl);
-  }
-
-  create(location: Location): Observable<Location> {
-    return this.http.post<Location>(this.baseUrl, location);
-  }
-
-  returnVehicule(id: number): Observable<Location> {
-    return this.http.patch<Location>(`${this.baseUrl}/${id}/retour`, {});
-  }
+  getAll(): Observable<Location[]> { return this.http.get<Location[]>(this.baseUrl); }
+  create(location: any): Observable<Location> { return this.http.post<Location>(this.baseUrl, location); }
+  returnVehicule(id: number): Observable<Location> { return this.http.patch<Location>(`${this.baseUrl}/${id}/retour`, {}); }
 }

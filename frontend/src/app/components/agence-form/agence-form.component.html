@@ -1,0 +1,21 @@
+<h2>{{ isEdit ? 'Modifier' : 'Ajouter' }} une agence</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>Nom</label>
+    <input class="form-control" formControlName="nom">
+  </div>
+  <div class="mb-3">
+    <label>Adresse</label>
+    <input class="form-control" formControlName="adresse">
+  </div>
+  <div class="mb-3">
+    <label>Ville</label>
+    <input class="form-control" formControlName="ville">
+  </div>
+  <div class="mb-3">
+    <label>Téléphone</label>
+    <input class="form-control" formControlName="telephone">
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Enregistrer</button>
+  <a class="btn btn-secondary ms-2" routerLink="/agences">Annuler</a>
+</form>

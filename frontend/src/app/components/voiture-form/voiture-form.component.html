@@ -1,0 +1,59 @@
+<h2>Ajouter une voiture</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col">
+      <label>Marque</label><input class="form-control" formControlName="marque">
+    </div>
+    <div class="col">
+      <label>Modèle</label><input class="form-control" formControlName="modele">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <label>Matricule</label><input class="form-control" formControlName="matricule">
+    </div>
+    <div class="col">
+      <label>Prix/Jour</label><input class="form-control" type="number" formControlName="prixParJour">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <label>Date de mise en service</label><input class="form-control" type="date" formControlName="dateMiseEnService">
+    </div>
+    <div class="col">
+      <label>Agence ID</label><input class="form-control" type="number" formControlName="agenceId">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <label>Statut initial</label>
+      <select class="form-select" formControlName="statut">
+        <option value="DISPONIBLE">Disponible</option>
+        <option value="LOUE">Loué</option>
+        <option value="EN_MAINTENANCE">En maintenance</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Nombre de portes</label><input class="form-control" type="number" formControlName="nombrePortes">
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <label>Type de carburant</label>
+      <select class="form-select" formControlName="typeCarburant">
+        <option value="ESSENCE">Essence</option>
+        <option value="DIESEL">Diesel</option>
+        <option value="HYBRIDE">Hybride</option>
+        <option value="ELECTRIQUE">Electrique</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Boîte de vitesse</label>
+      <select class="form-select" formControlName="boiteVitesse">
+        <option value="MANUELLE">Manuelle</option>
+        <option value="AUTOMATIQUE">Automatique</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3" type="submit" [disabled]="form.invalid">Créer</button>
+</form>

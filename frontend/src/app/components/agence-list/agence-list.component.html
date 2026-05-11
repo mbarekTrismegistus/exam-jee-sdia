@@ -1,1 +1,25 @@
-<p>agence-list works!</p>
+<h2>Liste des Agences</h2>
+<a class="btn btn-success mb-3" routerLink="/agences/new">+ Nouvelle agence</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th><th>Nom</th><th>Ville</th><th>Adresse</th><th>Téléphone</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (agence of agences(); track agence.id) {
+      <tr>
+        <td>{{ agence.id }}</td>
+        <td>{{ agence.nom }}</td>
+        <td>{{ agence.ville }}</td>
+        <td>{{ agence.adresse }}</td>
+        <td>{{ agence.telephone }}</td>
+        <td>
+          <a class="btn btn-sm btn-warning me-1" [routerLink]="['/agences/edit', agence.id]">✏️</a>
+          <button class="btn btn-sm btn-danger" (click)="deleteAgence(agence.id!)">🗑️</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

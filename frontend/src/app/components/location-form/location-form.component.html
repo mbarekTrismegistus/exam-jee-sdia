@@ -1,0 +1,16 @@
+<h2>Nouvelle location</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label>ID Véhicule</label>
+    <input class="form-control" type="number" formControlName="vehiculeId">
+  </div>
+  <div class="mb-3">
+    <label>Date début</label>
+    <input class="form-control" type="date" formControlName="dateDebut">
+  </div>
+  <div class="mb-3">
+    <label>Date fin</label>
+    <input class="form-control" type="date" formControlName="dateFin">
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Louer</button>
+</form>
