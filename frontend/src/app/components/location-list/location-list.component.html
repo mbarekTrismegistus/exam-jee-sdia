@@ -1,9 +1,19 @@
 <h2><i class="bi bi-calendar-check"></i> Locations</h2>
-<a class="btn btn-success mb-3" routerLink="/locations/new"><i class="bi bi-plus-circle"></i> Nouvelle location</a>
+
+@if (canCreate) {
+  <a class="btn btn-success mb-3" routerLink="/locations/new">
+    <i class="bi bi-plus-circle"></i> Nouvelle location
+  </a>
+}
 
 <table class="table">
   <thead>
-    <tr><th>ID</th><th>Véhicule</th><th>Date début</th><th>Date fin</th><th>Prix total</th><th>Action</th></tr>
+    <tr>
+      <th>ID</th><th>Véhicule</th><th>Date début</th><th>Date fin</th><th>Prix total</th>
+      @if (canModify) {
+        <th>Action</th>
+      }
+    </tr>
   </thead>
   <tbody>
     @for (loc of locations(); track loc.id) {
@@ -13,9 +23,13 @@
         <td>{{ loc.dateDebut }}</td>
         <td>{{ loc.dateFin }}</td>
         <td>{{ loc.prixTotal }} €</td>
-        <td>
-          <button class="btn btn-sm btn-info" (click)="returnVehicle(loc.id!)"><i class="bi bi-arrow-return-left"></i> Retour</button>
-        </td>
+        @if (canModify) {
+          <td>
+            <button class="btn btn-sm btn-info" (click)="returnVehicle(loc.id!)">
+              <i class="bi bi-arrow-return-left"></i> Retour
+            </button>
+          </td>
+        }
       </tr>
     }
   </tbody>

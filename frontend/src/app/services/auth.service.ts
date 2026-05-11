@@ -1,3 +1,4 @@
+// auth.service.ts
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
@@ -48,5 +49,25 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return this.tokenService.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'ROLE_ADMIN';
+  }
+
+  isEmploye(): boolean {
+    return this.getRole() === 'ROLE_EMPLOYE';
+  }
+
+  isClient(): boolean {
+    return this.getRole() === 'ROLE_CLIENT';
+  }
+
+  canModify(): boolean {
+    return this.isAdmin() || this.isEmploye();
+  }
+
+  canDelete(): boolean {
+    return this.isAdmin();
   }
 }

@@ -1,9 +1,14 @@
 <h2><i class="bi bi-building"></i> Liste des Agences</h2>
-<a class="btn btn-success mb-3" routerLink="/agences/new"><i class="bi bi-plus-circle"></i> Nouvelle agence</a>
+
+@if (canModify) {
+  <a class="btn btn-success mb-3" routerLink="/agences/new">
+    <i class="bi bi-plus-circle"></i> Nouvelle agence
+  </a>
+}
 
 <table class="table table-striped">
   <thead>
-    <tr><th>ID</th><th>Nom</th><th>Ville</th><th>Adresse</th><th>Téléphone</th><th>Actions</th></tr>
+    <tr><th>ID</th><th>Nom</th><th>Ville</th><th>Adresse</th><th>Téléphone</th><th *ngIf="canModify">Actions</th></tr>
   </thead>
   <tbody>
     @for (agence of agences(); track agence.id) {
@@ -13,9 +18,17 @@
         <td>{{ agence.ville }}</td>
         <td>{{ agence.adresse }}</td>
         <td>{{ agence.telephone }}</td>
-        <td>
-          <a class="btn btn-sm btn-warning me-1" [routerLink]="['/agences/edit', agence.id]"><i class="bi bi-pencil"></i></a>
-          <button class="btn btn-sm btn-danger" (click)="deleteAgence(agence.id!)"><i class="bi bi-trash"></i></button>
+        <td *ngIf="canModify">
+          @if (canModify) {
+            <a class="btn btn-sm btn-warning me-1" [routerLink]="['/agences/edit', agence.id]">
+              <i class="bi bi-pencil"></i>
+            </a>
+          }
+          @if (canDelete) {
+            <button class="btn btn-sm btn-danger" (click)="deleteAgence(agence.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+          }
         </td>
       </tr>
     }

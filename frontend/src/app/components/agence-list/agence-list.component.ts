@@ -1,7 +1,9 @@
+// agence-list.component.ts
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AgenceService } from '../../services/agence.service';
+import { AuthService } from '../../services/auth.service';
 import { Agence } from '../../models/agence.model';
 
 @Component({
@@ -11,10 +13,19 @@ import { Agence } from '../../models/agence.model';
 })
 export class AgenceListComponent {
   private agenceService = inject(AgenceService);
+  private authService = inject(AuthService);
   agences = signal<Agence[]>([]);
 
   constructor() {
     this.loadAgences();
+  }
+
+  get canModify(): boolean {
+    return this.authService.canModify();
+  }
+
+  get canDelete(): boolean {
+    return this.authService.canDelete();
   }
 
   loadAgences() {

@@ -12,15 +12,26 @@
   <div class="col">
     <input class="form-control" type="number" placeholder="Agence ID" [(ngModel)]="filterAgenceId" (change)="applyFilter()">
   </div>
-  <div class="col">
-    <a class="btn btn-success" routerLink="/voitures/new"><i class="bi bi-plus-circle"></i> Nouvelle voiture</a>
-    <a class="btn btn-success ms-2" routerLink="/motos/new"><i class="bi bi-plus-circle"></i> Nouvelle moto</a>
-  </div>
+  @if (canModify) {
+    <div class="col">
+      <a class="btn btn-success" routerLink="/voitures/new">
+        <i class="bi bi-plus-circle"></i> Nouvelle voiture
+      </a>
+      <a class="btn btn-success ms-2" routerLink="/motos/new">
+        <i class="bi bi-plus-circle"></i> Nouvelle moto
+      </a>
+    </div>
+  }
 </div>
 
 <table class="table table-striped">
   <thead>
-    <tr><th>ID</th><th>Marque</th><th>Modèle</th><th>Matricule</th><th>Prix/Jour</th><th>Statut</th><th>Agence</th><th>Actions</th></tr>
+    <tr>
+      <th>ID</th><th>Marque</th><th>Modèle</th><th>Matricule</th><th>Prix/Jour</th><th>Statut</th><th>Agence</th>
+      @if (canDelete) {
+        <th>Actions</th>
+      }
+    </tr>
   </thead>
   <tbody>
     @for (v of vehicules(); track v.id) {
@@ -32,9 +43,13 @@
         <td>{{ v.prixParJour }} €</td>
         <td><span class="badge" [ngClass]="{'bg-success': v.statut === 'DISPONIBLE', 'bg-warning': v.statut === 'LOUE', 'bg-secondary': v.statut === 'EN_MAINTENANCE'}">{{ v.statut }}</span></td>
         <td>{{ v.agenceId }}</td>
-        <td>
-          <button class="btn btn-sm btn-danger" (click)="deleteVehicle(v.id!)"><i class="bi bi-trash"></i></button>
-        </td>
+        @if (canDelete) {
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteVehicle(v.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        }
       </tr>
     }
   </tbody>
