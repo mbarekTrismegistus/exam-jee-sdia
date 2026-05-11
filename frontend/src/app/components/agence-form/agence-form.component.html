@@ -1,21 +1,16 @@
-<h2>{{ isEdit ? 'Modifier' : 'Ajouter' }} une agence</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label>Nom</label>
-    <input class="form-control" formControlName="nom">
+<div class="container-fluid px-4 py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4><i class="bi bi-building-add me-2"></i>{{ isEdit ? 'Modifier' : 'Ajouter' }} une agence</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!-- champs ... -->
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mb-3">
-    <label>Adresse</label>
-    <input class="form-control" formControlName="adresse">
-  </div>
-  <div class="mb-3">
-    <label>Ville</label>
-    <input class="form-control" formControlName="ville">
-  </div>
-  <div class="mb-3">
-    <label>Téléphone</label>
-    <input class="form-control" formControlName="telephone">
-  </div>
-  <button class="btn btn-primary" type="submit" [disabled]="form.invalid"><i class="bi bi-check-circle"></i> Enregistrer</button>
-  <a class="btn btn-secondary ms-2" routerLink="/agences">Annuler</a>
-</form>
+</div>

@@ -1,36 +1,53 @@
-<h2><i class="bi bi-building"></i> Liste des Agences</h2>
-
-@if (canModify) {
-  <a class="btn btn-success mb-3" routerLink="/agences/new">
-    <i class="bi bi-plus-circle"></i> Nouvelle agence
-  </a>
-}
-
-<table class="table table-striped">
-  <thead>
-    <tr><th>ID</th><th>Nom</th><th>Ville</th><th>Adresse</th><th>Téléphone</th><th *ngIf="canModify">Actions</th></tr>
-  </thead>
-  <tbody>
-    @for (agence of agences(); track agence.id) {
-      <tr>
-        <td>{{ agence.id }}</td>
-        <td>{{ agence.nom }}</td>
-        <td>{{ agence.ville }}</td>
-        <td>{{ agence.adresse }}</td>
-        <td>{{ agence.telephone }}</td>
-        <td *ngIf="canModify">
-          @if (canModify) {
-            <a class="btn btn-sm btn-warning me-1" [routerLink]="['/agences/edit', agence.id]">
-              <i class="bi bi-pencil"></i>
-            </a>
-          }
-          @if (canDelete) {
-            <button class="btn btn-sm btn-danger" (click)="deleteAgence(agence.id!)">
-              <i class="bi bi-trash"></i>
-            </button>
-          }
-        </td>
-      </tr>
+<div class="container-fluid px-4 py-4">
+  <div class="section-header">
+    <h2 class="page-title">
+      <i class="bi bi-building"></i> Agences
+    </h2>
+    @if (canModify) {
+      <a class="btn btn-primary" routerLink="/agences/new">
+        <i class="bi bi-plus-circle me-1"></i> Nouvelle agence
+      </a>
     }
-  </tbody>
-</table>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Ville</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          @if (canModify) { <th class="text-end">Actions</th> }
+        </tr>
+      </thead>
+      <tbody>
+        @for (agence of agences(); track agence.id) {
+          <tr>
+            <td class="fw-bold">{{ agence.id }}</td>
+            <td>{{ agence.nom }}</td>
+            <td>{{ agence.ville }}</td>
+            <td>{{ agence.adresse }}</td>
+            <td>{{ agence.telephone }}</td>
+            @if (canModify) {
+              <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary me-1" [routerLink]="['/agences/edit', agence.id]">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                @if (canDelete) {
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteAgence(agence.id!)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                }
+              </td>
+            }
+          </tr>
+        }
+        @if (agences().length === 0) {
+          <tr><td colspan="6" class="text-muted text-center py-5">Aucune agence trouvée.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

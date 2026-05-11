@@ -1,36 +1,46 @@
-<h2><i class="bi bi-calendar-check"></i> Locations</h2>
-
-@if (canCreate) {
-  <a class="btn btn-success mb-3" routerLink="/locations/new">
-    <i class="bi bi-plus-circle"></i> Nouvelle location
-  </a>
-}
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th><th>Véhicule</th><th>Date début</th><th>Date fin</th><th>Prix total</th>
-      @if (canModify) {
-        <th>Action</th>
-      }
-    </tr>
-  </thead>
-  <tbody>
-    @for (loc of locations(); track loc.id) {
-      <tr>
-        <td>{{ loc.id }}</td>
-        <td>{{ loc.vehiculeMarque }} {{ loc.vehiculeModele }}</td>
-        <td>{{ loc.dateDebut }}</td>
-        <td>{{ loc.dateFin }}</td>
-        <td>{{ loc.prixTotal }} €</td>
-        @if (canModify) {
-          <td>
-            <button class="btn btn-sm btn-info" (click)="returnVehicle(loc.id!)">
-              <i class="bi bi-arrow-return-left"></i> Retour
-            </button>
-          </td>
-        }
-      </tr>
+<div class="container-fluid px-4 py-4">
+  <div class="section-header">
+    <h2 class="page-title">
+      <i class="bi bi-journal-text"></i> Locations
+    </h2>
+    @if (canCreate) {
+      <a class="btn btn-primary" routerLink="/locations/new">
+        <i class="bi bi-calendar-plus me-1"></i> Nouvelle location
+      </a>
     }
-  </tbody>
-</table>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Véhicule</th>
+          <th>Dates</th>
+          <th>Prix total</th>
+          @if (canModify) { <th class="text-end">Action</th> }
+        </tr>
+      </thead>
+      <tbody>
+        @for (loc of locations(); track loc.id) {
+          <tr>
+            <td class="fw-bold">{{ loc.id }}</td>
+            <td>{{ loc.vehiculeMarque }} {{ loc.vehiculeModele }}</td>
+            <td>{{ loc.dateDebut }} → {{ loc.dateFin }}</td>
+            <td class="fw-bold text-primary">{{ loc.prixTotal }} €</td>
+            @if (canModify) {
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-info" (click)="returnVehicle(loc.id!)">
+                  <i class="bi bi-arrow-return-left me-1"></i> Retour
+                </button>
+              </td>
+            }
+          </tr>
+        }
+        @if (locations().length === 0) {
+          <tr><td colspan="5" class="text-center py-5 text-muted">Aucune location.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
